@@ -1,0 +1,94 @@
+<!-- ------------------ import Map ------------------ 
+
+// import map o mapas de importacion
+// Orientada a permitir controlar de forma sencilla la URL desde donde se va a importar o descargar
+// ciertos modulos medinate mecanismos como import o import ()
+
+// ------- Bare import <-------
+// normalmente una importacion se hace de las siguientes formas (FORMA RELATIVA) -->
+
+<script>
+
+import { getData } from "./utils.js";       // Importación relativa
+import utils from "./modules/utils.js";     // Importación por defecto
+import { Howl } from "url/de/importacion";  // Importación desde URL
+
+</script>
+
+
+
+<!--    se importa un paquete con el nombre indicado que se
+        a gestionado un paquete NPM 
+
+    el codigo escrip no es necesario para estos ejemplo 
+    solo lo colocamos para visulaizar-->
+<script>
+import { Howl } from "howler";
+import dayjs from "dayjs";
+</script>
+
+
+
+
+<!-- // ----------------- ¿Que es? <-----------------
+// es una especie de indice de paquetes  
+// se importa desde el HTML -->
+<script type="importmap">   <!-- el tipo de importacion "type = "importmap" -->
+    {
+    "imports": {
+        "dayjs": "/node_modules/dayjs/esm/dayjs.js",
+        "lodash": "/node_modules/lodash-es/lodash.js"
+    }
+    } 
+</script>
+
+<!-- // ----------------- Importacion URL/CDN <-----------------
+        nuestro documento solo debe tener un solo mapa de modulos
+        es decir solo archivo de importacion -->
+<script type="importmap">
+    {
+    "imports": {
+        "lodash": "https://unpkg.com/lodash-es@4.17.21/lodash.js",      // 1°version de (lodash) -> en donde se encunetra al archivo principal 
+        "lodash/": "https://unpkg.com/lodash-es@4.17.21/",              // 2°v (lodash/) -> referencia de la carpeta de
+        "./lodash.js": "https://unpkg.com/lodash-es@4.17.21/lodash.js"  // ./lodash.js -> reasigna el modulo
+    }
+    }
+</script>
+
+
+
+<!-- ----------------- Importacion modulos con bare imports <-----------------
+    desde import y no se puede hacer la importacion desde un <script type="module"> -->
+
+<script>
+
+import { trim } from "lodash-es";       // coincide el lodash y busca el el fichero lodash.js en la URL e importa la funcion trim
+import trim from "lodash-es/trim.js";   // coincide el lodash/ y busca el fichero trim.js en la URL e importa el fichero
+
+
+</script>
+
+
+<!-- ----------------- Diferentes Importacion <-----------------
+    los scopes nos permiten sobre escribir los anteriores  -->
+<script type="importmap">
+    {
+    "imports": {
+        "lodash": "https://unpkg.com/lodash-es@4.17.21/lodash.js",
+        "howler": "/libs/howler.js"
+    },
+    "scopes": {
+        "/local/": {
+        "lodash": "/libs/lodash.js"
+    },
+    "/cdn/": {
+        "howler": "https://unpkg.com/howler@2.2.3/dist/howler.js"
+    }
+    }
+    }
+</script>
+
+<!-- ---------------- Mapa de importaciones externo <-----------------
+desde archivos .json y no desde html 
+pero esto todavia no es posible -->
+<script type="importmap" src="./importmap.json"></script>
