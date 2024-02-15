@@ -74,3 +74,13 @@ import { Howler, Howl } from 'howler'
 // cuando se hablara de bare imports
 // este se buscar directamente en la carpeta instalra en NPM
 // -------> Sub <-------
+
+
+
+
+// -----------------> Importacion CommonJS (legacy) <-----------------
+const library = require ('Library');
+
+// este modulo es mas usado en NodeJs
+// el require() y module.export -> no son soportado de forma
+// nativa por navegadores
